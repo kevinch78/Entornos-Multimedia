@@ -26,7 +26,6 @@ export default function GeometryExplorer() {
     localStorage.setItem("autoRotate", String(autoRotate))
   }, [autoRotate])
 
-  // 🔥 Catálogo de geometrías (memoizado)
   const geometries = useMemo(() => ({
     cube: {
       name: "Cube",
@@ -86,7 +85,6 @@ export default function GeometryExplorer() {
     }
   }), [])
 
-  // Geometría activa
   const geometry = useMemo(() => geometries[geometryType].create(), [geometryType, geometries])
 
   useEffect(() => {
@@ -118,7 +116,6 @@ export default function GeometryExplorer() {
     dir.position.set(5, 5, 5)
     scene.add(ambient, dir)
 
-    // Mesh inicial
     const material = new THREE.MeshPhongMaterial({
       color: geometries[geometryType].color,
       wireframe: wireframeRef.current
@@ -162,7 +159,6 @@ export default function GeometryExplorer() {
     }
   }, [])
 
-  // Reemplazar mesh al cambiar geometría
   useEffect(() => {
     if (!sceneRef.current || !currentMeshRef.current) return
 
@@ -179,7 +175,6 @@ export default function GeometryExplorer() {
     sceneRef.current.add(mesh)
   }, [geometryType, geometry, geometries])
 
-  // Wireframe dinámico
   useEffect(() => {
     const mesh = currentMeshRef.current
     if (!mesh) return
